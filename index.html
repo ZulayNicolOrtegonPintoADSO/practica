@@ -18,36 +18,36 @@
 </head>
 <body>
     <div id="app"> 
-        <div class="container-fluid">
+        <div class="container-fluid"> <!--INPUTS PARA AGREGAR OBJETOS A LA LISTA  -->
             <div class="row">
-                <div class="col-12 text-center bg-info">
-                    <label>PROGRAMA PARA <strong>CREAR Y MODIFICAR</strong>UN ARRAY</label>
+                <div class="col-12 text-center bg-info" style="font-size: 1cm;">
+                    <label>PROGRAMA PARA <strong>CREAR Y MODIFICAR</strong> UN ARRAY</label>
                 </div>
 
-                <div class="col-4 bg-warning text-center">
+                <div class="col-4 bg-warning text-center d-flex justify-content-center" style="align-items: center;"> 
                     <form>
-                        <input type="text" placeholder="Nombre">
-                        <input type="text" placeholder="Edad">
-
-                        <button @click.prevent="crearobj">agregar</button>
+                        <input v-model="nombre" placeholder="nombre">
+                        <input v-model="edad" type="number" placeholder="edad">
+                        <input v-model="transporte" placeholder="transporte"> <br>
+                        
+                        <button @click.prevent="crearobj" class="m-2"> ENVIAR</button>
                     </form>
+
+                    
                 </div>
 
-                <div class="col-8 bg-dark text-center">
-                    <table>
-                        <tbhead>
-
-                        </tbhead>
+                <div class="col-8 bg-dark text-center"> <!--Tabla q contiene los objetos de la lista  -->
+                    <table class="table table-dark table-striped text-center">
+                        <thead><tr> <th>NOMBRE</th> <th>EDAD</th> <th>TRANSPORTE</th></tr></thead>
+                        <tbody v-for= "i in lista"><tr><td>{{i.nom}} </td> <td>{{i.edad}}</td> <td>{{i.trans}}</td></tr></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        
-        
-        <div class="container-fluid">
+        <div class="container-fluid"><!--Contenedor de los botones para las opciones-->
             <div class="row">
-                <div class="col text-center"> <!--Contenedor de los botones para las opciones-->
+                <div class="col text-center"> 
                     <!--  Ver -->
                     <input type="radio" v-model="op1" v-bind:value="true"> <label>1</label> 
                     <input type="radio" v-model="op2" v-bind:value="true"> <label>2</label>    
@@ -55,27 +55,47 @@
             </div>
         </div>
 
-
-        <div v-show="op1" class="info">
-            <p>
-                <h2>ELIMINAR ELEMENTOS DEL ARRAY</h2> <br>
-
-                <h3>¿Cómo los quieres eliminar?</h3>
-                <ul>1.Eliminar el primer elemento</ul>
-                <ul>2.Eliminar el último elemento</ul>
-                <ul>3.Eliminar el elemento de x índice</ul>
-                
-                <input type="number" placeholder="ESCOGE UNA OPCIÓN" v-model="inputeliminar">
-            </p>
-            <input type="radio" v-model="op1" v-bind:value="false">  <label>OCULTAR</label>
+        <div class="container-fluid"> <!--Contenedor de la opción 1 ELIMINAR-->
+            <div class="row">
+                <div class="col text-center " v-show="op1" > 
+                    <h2>ELIMINAR ELEMENTOS DEL ARRAY</h2> <br>
+        
+                    <h3>¿Cómo los quieres eliminar?</h3>
+                    <ul>1.Eliminar el primer elemento</ul>
+                    <ul>2.Eliminar el último elemento</ul>
+                    <ul>3.Eliminar el elemento de x índice</ul>
+                        
+                    <input v-model="opcion" type="number" placeholder="DIGITA LA OPCIÓN"> <br>
+                    <p>SI ES LA OPCIÓN 3 DEBES DIGITAR EL ÍNDICE/POSICIÓN DEL OBJETO A ELIMINAR:</p> 
+                    <input v-model="indice" type="number" placeholder="ÍNDICE DEL ARRAY A ELIMINAR"> <br>
+                    <button @click.prevent="eliminar">ELIMINAR</button> <br>
+                    
+                    <input type="radio" v-model="op1" v-bind:value="false">  <label style="color: red;">OCULTAR</label>
+                </div>
+            </div>
         </div>
 
-        <div v-show="op2" class="info">
-            OPCION 2
-            <input type="radio" v-model="op2" v-bind:value="false">  <label>OCULTAR</label>
+        <div class="container-fluid"><!--Contenedor de la opción 2 Agregar-->
+            <div class="row">
+                <div class="col-12 text-center" v-show="op2"> 
+                    <h2>AGREGAR ELEMENTOS AL ARRAY</h2> <br>
+        
+                    <h3>¿Cómo los quieres Agregar?</h3>
+                    <ul>1.Agregar al final</ul>
+                    <ul>2.Agregar al comienzo</ul>
+
+                    <form>
+                        <input v-model="agg_nom" placeholder="nombre">
+                        <input v-model="agg_edad" type="number" placeholder="edad">
+                        <input v-model="agg_trans" placeholder="transporte"> <br>
+                        
+                        <button @click.prevent="agg">Agregar objeto a un array</button> <br>
+                    </form>
+                     
+                    <input type="radio" v-model="op2" v-bind:value="false">  <label style="color: red;">OCULTAR</label>
+                </div>
+            </div>
         </div>
-
-
     </div>
     
 </body>
